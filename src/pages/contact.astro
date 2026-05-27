@@ -1,0 +1,51 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Contact"
+  description="Contact Matthew Decker Photography."
+>
+  <section class="section">
+    <div class="section__inner">
+      <p class="eyebrow">Contact</p>
+      <h1 class="page-title">Send a note about a trip, image, or collaboration.</h1>
+      <p class="page-lede">
+        This form is configured for Netlify Forms, so submissions can be handled by Netlify after the site is deployed.
+      </p>
+
+      <form
+        class="contact-form"
+        name="contact"
+        method="POST"
+        action="/thanks/"
+        data-netlify="true"
+        netlify-honeypot="bot-field"
+      >
+        <input type="hidden" name="form-name" value="contact" />
+        <p hidden>
+          <label>Do not fill this out: <input name="bot-field" /></label>
+        </p>
+        <div class="form-row">
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+          </div>
+        </div>
+        <div class="field">
+          <label for="subject">Subject</label>
+          <input id="subject" name="subject" required />
+        </div>
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required></textarea>
+        </div>
+        <button class="button" type="submit">Send inquiry</button>
+      </form>
+    </div>
+  </section>
+</BaseLayout>

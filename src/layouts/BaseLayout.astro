@@ -1,0 +1,38 @@
+---
+import SiteFooter from '@components/SiteFooter.astro';
+import SiteHeader from '@components/SiteHeader.astro';
+import '@styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Matthew Decker Photography',
+  description = 'A cinematic travel photography portfolio organized by trips and favorite images.',
+} = Astro.props;
+
+const pageTitle = title === 'Matthew Decker Photography' ? title : `${title} | Matthew Decker Photography`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <div class="site-shell">
+      <SiteHeader />
+      <main class="site-main">
+        <slot />
+      </main>
+      <SiteFooter />
+    </div>
+    <script is:inline src="/scripts/gallery.js" defer></script>
+  </body>
+</html>

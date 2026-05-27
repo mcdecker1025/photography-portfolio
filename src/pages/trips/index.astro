@@ -1,0 +1,28 @@
+---
+import TripCard from '@components/TripCard.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getTrips } from '@lib/trips';
+
+const trips = await getTrips();
+---
+
+<BaseLayout
+  title="Trips"
+  description="Travel photography trips with stories, favorite frames, and full galleries."
+>
+  <section class="section">
+    <div class="section__inner">
+      <p class="eyebrow">Trips</p>
+      <h1 class="page-title">Every journey gets its own room.</h1>
+      <p class="page-lede">
+        Browse the archive by place and date. Each trip page combines a short field note with favorite images and a larger gallery.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="section__inner trip-grid">
+      {trips.map((trip) => <TripCard trip={trip} />)}
+    </div>
+  </section>
+</BaseLayout>

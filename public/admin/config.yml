@@ -1,0 +1,50 @@
+backend:
+  name: github
+  repo: mcdecker1025/photography-portfolio
+  branch: main
+
+local_backend: true
+publish_mode: editorial_workflow
+media_folder: "public/uploads/trips"
+public_folder: "/uploads/trips"
+
+collections:
+  - name: "trips"
+    label: "Trips"
+    folder: "src/content/trips"
+    create: true
+    extension: "md"
+    format: "frontmatter"
+    slug: "{{slug}}"
+    preview_path: "trips/{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - {
+          label: "Slug",
+          name: "slug",
+          widget: "string",
+          hint: "Lowercase URL segment, for example: pacific-edge",
+        }
+      - { label: "Location", name: "location", widget: "string" }
+      - { label: "Start Date", name: "dateStart", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "End Date", name: "dateEnd", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Summary", name: "summary", widget: "text" }
+      - { label: "Story", name: "story", widget: "text" }
+      - { label: "Cover Image", name: "coverImage", widget: "image" }
+      - { label: "Hero Image", name: "heroImage", widget: "image" }
+      - label: "Photos"
+        name: "photos"
+        widget: "list"
+        summary: "{{fields.caption}}"
+        fields:
+          - { label: "Image", name: "image", widget: "image" }
+          - { label: "Alt Text", name: "alt", widget: "string" }
+          - { label: "Caption", name: "caption", widget: "string" }
+          - { label: "Favorite", name: "favorite", widget: "boolean", default: false }
+          - {
+              label: "Orientation",
+              name: "orientation",
+              widget: "select",
+              required: false,
+              options: ["landscape", "portrait", "square"],
+            }

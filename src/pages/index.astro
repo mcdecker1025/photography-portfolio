@@ -1,0 +1,73 @@
+---
+import PhotoGrid from '@components/PhotoGrid.astro';
+import TripCard from '@components/TripCard.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getFavoritePhotos, getTrips } from '@lib/trips';
+
+const trips = await getTrips();
+const favoritePhotos = await getFavoritePhotos();
+const featuredTrip = trips[0];
+const heroImage = featuredTrip?.data.heroImage ?? '/uploads/trips/alpine-light/hero.jpg';
+---
+
+<BaseLayout>
+  <section class="home-hero" aria-label="Portfolio introduction">
+    <img class="home-hero__image" src={heroImage} alt="" />
+    <div class="home-hero__content">
+      <p class="eyebrow">Travel photography portfolio</p>
+      <h1 class="home-hero__title">Frames from the road, gathered by trip.</h1>
+      <p class="home-hero__copy">
+        A cinematic archive of landscapes, quiet details, and favorite images from places worth remembering slowly.
+      </p>
+      <div class="hero-actions">
+        <a class="button button--light" href="/trips/">Explore trips</a>
+        <a class="button button--ghost" href="/favorites/">View favorites</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section__inner intro-grid">
+      <div>
+        <p class="eyebrow">The archive</p>
+        <h2 class="page-title">Trips, edits, and the images that stayed with me.</h2>
+      </div>
+      <ul class="kicker-list">
+        <li>
+          <strong>Organized by journey</strong>
+          <span>Each trip has its own story, location details, favorites, and gallery.</span>
+        </li>
+        <li>
+          <strong>Built to edit</strong>
+          <span>Trips and photos are stored as content files that Decap CMS can update from the browser.</span>
+        </li>
+        <li>
+          <strong>Static and public</strong>
+          <span>The site deploys as plain static files, making it fast on Netlify without a running computer.</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="section__inner">
+      <p class="eyebrow">Recent trips</p>
+      <div class="trip-grid">
+        {trips.slice(0, 3).map((trip) => <TripCard trip={trip} />)}
+      </div>
+      <div class="inline-actions">
+        <a class="button" href="/trips/">See every trip</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="section__inner">
+      <p class="eyebrow">Favorite frames</p>
+      <PhotoGrid photos={favoritePhotos.slice(0, 6)} showTrip />
+      <div class="inline-actions">
+        <a class="button button--ghost" href="/favorites/">Open the full favorites edit</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
