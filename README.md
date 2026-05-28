@@ -21,3 +21,15 @@ pnpm run build
 ## Content
 
 Trips live in `src/content/trips/`. CMS-uploaded images are configured to go into `public/uploads/trips/`, and they are referenced on the site as `/uploads/trips/...`.
+
+## Cloudinary Media Library
+
+For larger photo archives, use Cloudinary instead of committing every uploaded image to GitHub.
+
+1. Create a free Cloudinary account.
+2. In Cloudinary, copy the public `cloud_name` and `api_key` from the dashboard.
+3. In `public/admin/config.yml`, uncomment the `media_library` block and replace `YOUR_CLOUD_NAME` and `YOUR_API_KEY`.
+4. Do not put the Cloudinary API secret in the repo.
+5. Commit, push, and let Netlify redeploy.
+
+After that, image fields in `/admin/` will open Cloudinary's media library. Existing `/uploads/...` images will continue to work.

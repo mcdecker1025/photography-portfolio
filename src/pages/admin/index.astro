@@ -11,5 +11,11 @@
   </head>
   <body>
     <script src="https://unpkg.com/decap-cms@^3.8.0/dist/decap-cms.js"></script>
+    <script src="https://unpkg.com/decap-cms-media-library-cloudinary@3.1.0/dist/decap-cms-media-library-cloudinary.js"></script>
+    <script is:inline>
+      if (window.CMS && window.DecapCmsMediaLibraryCloudinary) {
+        window.CMS.registerMediaLibrary(window.DecapCmsMediaLibraryCloudinary);
+      }
+    </script>
   </body>
 </html>
