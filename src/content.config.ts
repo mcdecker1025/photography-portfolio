@@ -16,6 +16,13 @@ const dateSchema = z.preprocess((value) => {
   return value;
 }, z.string().regex(/^\d{4}-\d{2}-\d{2}$/));
 
+const imageListSchema = z.preprocess((value) => {
+  if (value === undefined || value === null || value === '') return [];
+  if (Array.isArray(value)) return value;
+  if (typeof value === 'string') return [value];
+  return value;
+}, z.array(z.string()).default([]));
+
 const trips = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/trips' }),
   schema: z.object({
@@ -29,6 +36,7 @@ const trips = defineCollection({
     coverImage: z.string(),
     heroImage: z.string(),
     photos: z.array(photoSchema).default([]),
+    bulkPhotos: imageListSchema,
   }),
 });
 

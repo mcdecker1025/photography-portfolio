@@ -1,7 +1,7 @@
 ---
 import PhotoGrid from '@components/PhotoGrid.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { formatDateRange, getAdjacentTrips, getTrips, type Trip } from '@lib/trips';
+import { formatDateRange, getAdjacentTrips, getAllTripPhotos, getTrips, type Trip } from '@lib/trips';
 
 export async function getStaticPaths() {
   const trips = await getTrips();
@@ -17,6 +17,7 @@ interface Props {
 }
 
 const { trip, trips } = Astro.props;
+const allPhotos = getAllTripPhotos(trip);
 const favoritePhotos = trip.data.photos.filter((photo) => photo.favorite);
 const storyParagraphs = trip.data.story.split(/\n{2,}/).filter(Boolean);
 const { previous, next } = getAdjacentTrips(trips, trip.data.slug);
@@ -37,7 +38,7 @@ const { previous, next } = getAdjacentTrips(trips, trip.data.slug);
       <aside class="story__details" aria-label="Trip details">
         <p><span>Location</span>{trip.data.location}</p>
         <p><span>Dates</span>{formatDateRange(trip.data.dateStart, trip.data.dateEnd)}</p>
-        <p><span>Photos</span>{trip.data.photos.length} selected frames</p>
+        <p><span>Photos</span>{allPhotos.length} selected frames</p>
       </aside>
       <div class="story__copy">
         {storyParagraphs.map((paragraph) => <p>{paragraph}</p>)}
@@ -59,7 +60,7 @@ const { previous, next } = getAdjacentTrips(trips, trip.data.slug);
   <section class="section section--tight">
     <div class="section__inner">
       <p class="eyebrow">Full gallery</p>
-      <PhotoGrid photos={trip.data.photos} />
+      <PhotoGrid photos={allPhotos} />
     </div>
   </section>
 

@@ -28,8 +28,8 @@ For larger photo archives, use Cloudinary instead of committing every uploaded i
 
 1. Create a free Cloudinary account.
 2. In Cloudinary, copy the public `cloud_name` and `api_key` from the dashboard.
-3. In `public/admin/config.yml`, uncomment the `media_library` block and replace `YOUR_CLOUD_NAME` and `YOUR_API_KEY`.
+3. Put those public values in the `media_library` block in `public/admin/config.yml`.
 4. Do not put the Cloudinary API secret in the repo.
 5. Commit, push, and let Netlify redeploy.
 
-After that, image fields in `/admin/` will open Cloudinary's media library. Existing `/uploads/...` images will continue to work.
+After that, image fields in `/admin/` will open Cloudinary's media library. Existing `/uploads/...` images will continue to work. Use the `Bulk Photos` trip field for fast batch uploads that do not need individual captions.

@@ -36,6 +36,18 @@ export async function getFavoritePhotos(): Promise<FavoritePhoto[]> {
   );
 }
 
+export function getAllTripPhotos(trip: Trip): TripPhoto[] {
+  const bulkPhotos = trip.data.bulkPhotos.map((image, index) => ({
+    image,
+    alt: `${trip.data.title} photo ${index + 1}`,
+    caption: `${trip.data.title} photo ${index + 1}`,
+    favorite: false,
+    orientation: 'landscape' as const,
+  }));
+
+  return [...trip.data.photos, ...bulkPhotos];
+}
+
 export function formatDateRange(dateStart: string, dateEnd: string) {
   const formatter = new Intl.DateTimeFormat('en', {
     month: 'short',
