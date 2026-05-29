@@ -10,7 +10,7 @@ story: >
   mountaineering adventure.
 
   During this trip, we successfully summited Eldorado Peak, Mt. Baker, and Mt. Rainier, as well as attempting Mt. Shuksan and turning around due to bad weather. 
-coverImage: /uploads/trips/img_5265.jpeg
-heroImage: /uploads/trips/img_5265.jpeg
+coverImage: https://res.cloudinary.com/diuglvm3g/image/upload/c_limit,f_auto,q_auto,w_2400/v1780027988/Eldorado_Descent_4_ejqnqc.jpg
+heroImage: https://res.cloudinary.com/diuglvm3g/image/upload/c_limit,f_auto,q_auto,w_2400/v1780027989/IMG_5292_coviv2.jpg
 photos: []
 ---
