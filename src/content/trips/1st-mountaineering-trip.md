@@ -25,5 +25,45 @@ photos:
     image: https://res.cloudinary.com/diuglvm3g/image/upload/c_limit,f_auto,q_auto,w_2400/v1780027988/Eldorado_Knife_Edge_5_r2x7al.jpg
     alt: Summit of El Dorado
     caption: " "
+  - favorite: false
+    image: https://res.cloudinary.com/diuglvm3g/image/upload/c_limit,f_auto,q_auto,w_2400/v1780027989/IMG_5292_coviv2.jpg
+    alt: Mt. Rainier disposable
+    caption: " "
+  - favorite: false
+    image: https://res.cloudinary.com/diuglvm3g/image/upload/c_limit,f_auto,q_auto,w_2400/v1780027989/IMG_5388_a52gub.jpg
+    alt: El Dorado Summit
+    caption: " "
+  - favorite: false
+    image: https://res.cloudinary.com/diuglvm3g/image/upload/c_limit,f_auto,q_auto,w_2400/v1780027988/Eldorado_Descent_4_ejqnqc.jpg
+    alt: El dorado summit
+    caption: " "
+  - favorite: false
+    image: https://res.cloudinary.com/diuglvm3g/image/upload/c_limit,f_auto,q_auto,w_2400/v1780027985/Eldorado_Descent_2_vebm8s.jpg
+    alt: El Dorado downhill
+    caption: " "
+  - favorite: false
+    image: https://res.cloudinary.com/diuglvm3g/image/upload/c_limit,f_auto,q_auto,w_2400/v1780027983/IMG_5265_eko2qg.jpg
+    alt: El Dorado Ascent
+    caption: " "
+  - favorite: false
+    image: https://res.cloudinary.com/diuglvm3g/image/upload/c_limit,f_auto,q_auto,w_2400/v1780027982/IMG_3899_pcrcts.jpg
+    alt: Mt. Shuksan Pyramid
+    caption: " "
+  - favorite: false
+    image: https://res.cloudinary.com/diuglvm3g/image/upload/c_limit,f_auto,q_auto,w_2400/v1780027981/IMG_5475_ehbeiu.jpg
+    alt: Mt. Shuksan Summit Pyramid
+    caption: " "
+  - favorite: false
+    image: https://res.cloudinary.com/diuglvm3g/image/upload/c_limit,f_auto,q_auto,w_2400/v1780027979/IMG_5394_mlby7s.jpg
+    alt: El Dorado Descent
+    caption: " "
+  - favorite: false
+    image: https://res.cloudinary.com/diuglvm3g/image/upload/c_limit,f_auto,q_auto,w_2400/v1780027977/IMG_5460_ikzp55.jpg
+    alt: Mt. Shuksan Ascent
+    caption: " "
+  - favorite: false
+    image: https://res.cloudinary.com/diuglvm3g/image/upload/c_limit,f_auto,q_auto,w_2400/v1780027976/IMG_5254_vlgkhp.jpg
+    alt: El Dorado Ascent
+    caption: " "
 bulkPhotos: ""
 ---
