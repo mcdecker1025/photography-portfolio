@@ -29,8 +29,8 @@ collections:
     create: true
     extension: "md"
     format: "frontmatter"
-    slug: "{{slug}}"
-    preview_path: "trips/{{slug}}"
+    slug: "{{fields.slug}}"
+    preview_path: "trips/{{fields.slug}}"
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - {
