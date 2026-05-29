@@ -25,15 +25,21 @@ const { previous, next } = getAdjacentTrips(trips, trip.data.slug);
 
 <BaseLayout title={trip.data.title} description={trip.data.summary}>
   <section class="trip-hero" aria-label={`${trip.data.title} introduction`}>
-    <img class="trip-hero__image" src={trip.data.heroImage} alt="" />
+    <img
+      class="trip-hero__image"
+      src={trip.data.heroImage || trip.data.coverImage}
+      alt=""
+      onerror={`this.onerror=null;this.src='${trip.data.coverImage}'`}
+    />
     <div class="trip-hero__content">
       <p class="eyebrow">{trip.data.location} · {formatDateRange(trip.data.dateStart, trip.data.dateEnd)}</p>
       <h1>{trip.data.title}</h1>
       <p>{trip.data.summary}</p>
+      <a class="trip-hero__jump" href="#gallery">View gallery</a>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section trip-story-section">
     <div class="section__inner story">
       <aside class="story__details" aria-label="Trip details">
         <p><span>Location</span>{trip.data.location}</p>
@@ -57,7 +63,7 @@ const { previous, next } = getAdjacentTrips(trips, trip.data.slug);
     )
   }
 
-  <section class="section section--tight">
+  <section class="section section--tight gallery-section" id="gallery">
     <div class="section__inner">
       <p class="eyebrow">Full gallery</p>
       <PhotoGrid photos={allPhotos} />
