@@ -27,6 +27,7 @@ collections:
     label: "Trips"
     folder: "src/content/trips"
     create: true
+    delete: true
     extension: "md"
     format: "frontmatter"
     slug: "{{fields.slug}}"
