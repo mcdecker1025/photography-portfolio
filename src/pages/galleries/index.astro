@@ -1,0 +1,35 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { getGalleries, getGalleryPhotos, getGallerySlug } from '@lib/galleries';
+
+const galleries = await getGalleries();
+---
+
+<BaseLayout
+  title="Galleries"
+  description="Photography galleries organized by subject and category."
+>
+  <section class="gallery-index-hero">
+    <div>
+      <p class="eyebrow">Galleries</p>
+      <h1>Browse by subject.</h1>
+      <p>
+        Open a category to view the full image edit, then select any photograph for a larger view and description.
+      </p>
+    </div>
+  </section>
+
+  <section class="gallery-category-grid" aria-label="Gallery categories">
+    {
+      galleries.map((gallery) => (
+        <a class="gallery-category-card" href={`/galleries/${getGallerySlug(gallery)}/`}>
+          <img src={gallery.data.coverImage} alt="" loading="lazy" />
+          <span class="gallery-category-card__body">
+            <span>{gallery.data.title}</span>
+            <small>{getGalleryPhotos(gallery).length} images</small>
+          </span>
+        </a>
+      ))
+    }
+  </section>
+</BaseLayout>

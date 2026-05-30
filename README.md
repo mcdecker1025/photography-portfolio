@@ -20,7 +20,23 @@ pnpm run build
 
 ## Content
 
-Trips live in `src/content/trips/`. CMS-uploaded images are configured to go into `public/uploads/trips/`, and they are referenced on the site as `/uploads/trips/...`.
+Gallery categories live in `src/content/galleries/`. New Cloudinary uploads are stored in Cloudinary and referenced by URL. Local fallback uploads use `public/uploads/galleries/`; existing placeholder images still live under `public/uploads/trips/`.
+
+## Adding A Gallery
+
+Use `/admin/` and open the `Galleries` collection.
+
+1. Click `New Gallery`.
+2. Add a gallery name, short summary, cover image, and optional hero image.
+3. Use `Fast Batch Uploads` when you want to add many photos quickly.
+4. Use `Curated Photos` when a photo needs a custom title, location, description, alt text, or portrait/square layout.
+5. Save, mark ready, and publish when the gallery is ready to go live.
+
+New gallery URLs are generated from the gallery name. For example, `High Alpine` becomes `/galleries/high-alpine/`.
+
+## Editing About And Contact
+
+Use `/admin/` and open the `Pages` collection. The About and Contact pages are fixed entries, so you can edit their text without changing routes or touching code.
 
 ## Cloudinary Media Library
 
@@ -32,4 +48,4 @@ For larger photo archives, use Cloudinary instead of committing every uploaded i
 4. Do not put the Cloudinary API secret in the repo.
 5. Commit, push, and let Netlify redeploy.
 
-After that, image fields in `/admin/` will open Cloudinary's media library. Existing `/uploads/...` images will continue to work. Use the `Bulk Photos` trip field for fast batch uploads that do not need individual captions.
+After that, image fields in `/admin/` will open Cloudinary's media library. Existing `/uploads/...` images will continue to work. Use the `Fast Batch Uploads` gallery field for fast batch uploads that do not need individual titles/descriptions yet.

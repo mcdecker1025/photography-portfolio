@@ -1,14 +1,13 @@
 ---
-import type { FavoritePhoto, TripPhoto } from '@lib/trips';
+import type { DisplayPhoto } from '@lib/galleries';
 
 interface Props {
-  photos: TripPhoto[] | FavoritePhoto[];
-  showTrip?: boolean;
+  photos: DisplayPhoto[];
 }
 
-const { photos, showTrip = false } = Astro.props;
+const { photos } = Astro.props;
 
-const getTileClass = (photo: TripPhoto | FavoritePhoto) => {
+const getTileClass = (photo: DisplayPhoto) => {
   if (photo.orientation === 'portrait') return 'photo-tile photo-tile--portrait';
   if (photo.orientation === 'square') return 'photo-tile photo-tile--square';
   return 'photo-tile photo-tile--wide';
@@ -24,21 +23,20 @@ const getTileClass = (photo: TripPhoto | FavoritePhoto) => {
           type="button"
           data-gallery-image={photo.image}
           data-gallery-alt={photo.alt}
-          data-gallery-caption={photo.caption}
-          aria-label={`Open photo: ${photo.caption}`}
+          data-gallery-title={photo.title}
+          data-gallery-location={photo.location}
+          data-gallery-description={photo.description}
+          data-gallery-caption={`${photo.title} | ${photo.location}. ${photo.description}`}
+          aria-label={`Open photo: ${photo.title}`}
         >
           <img src={photo.image} alt={photo.alt} loading="lazy" />
+          <span class="photo-overlay" aria-hidden="true">
+            <span class="photo-overlay__title">{photo.title} | {photo.location}</span>
+            <span class="photo-overlay__description">{photo.description}</span>
+          </span>
         </button>
         <figcaption class="photo-caption">
-          {photo.caption}
-          {showTrip && 'tripTitle' in photo && (
-            <>
-              <br />
-              <a class="favorite-link" href={`/trips/${photo.tripSlug}/`}>
-                {photo.tripTitle} · {photo.tripLocation}
-              </a>
-            </>
-          )}
+          {photo.title} | {photo.location}
         </figcaption>
       </figure>
     ))

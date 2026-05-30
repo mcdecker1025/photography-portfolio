@@ -2,14 +2,13 @@
 const currentPath = Astro.url.pathname;
 
 const links = [
-  { href: '/trips/', label: 'Trips' },
-  { href: '/favorites/', label: 'Favorites' },
+  { href: '/galleries/', label: 'Galleries' },
   { href: '/about/', label: 'About' },
   { href: '/contact/', label: 'Contact' },
 ];
 
 const isCurrent = (href: string) => {
-  return href === '/trips/' ? currentPath.startsWith('/trips') : currentPath === href;
+  return href === '/galleries/' ? currentPath.startsWith('/galleries') : currentPath === href;
 };
 ---
 

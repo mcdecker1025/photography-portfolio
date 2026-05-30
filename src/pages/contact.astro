@@ -1,18 +1,27 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import { getPageContent } from '@lib/pages';
+
+const page = await getPageContent('contact', {
+  title: 'Contact',
+  description: 'Contact Matthew Decker Photography.',
+  eyebrow: 'Contact',
+  heading: 'Send a note about an image, gallery, or collaboration.',
+  intro: 'This form is configured for Netlify Forms, so submissions can be handled by Netlify after the site is deployed.',
+  paragraphs: [],
+  submitLabel: 'Send inquiry',
+});
 ---
 
 <BaseLayout
-  title="Contact"
-  description="Contact Matthew Decker Photography."
+  title={page.title}
+  description={page.description}
 >
   <section class="section">
     <div class="section__inner">
-      <p class="eyebrow">Contact</p>
-      <h1 class="page-title">Send a note about a trip, image, or collaboration.</h1>
-      <p class="page-lede">
-        This form is configured for Netlify Forms, so submissions can be handled by Netlify after the site is deployed.
-      </p>
+      <p class="eyebrow">{page.eyebrow}</p>
+      <h1 class="page-title">{page.heading}</h1>
+      {page.intro && <p class="page-lede">{page.intro}</p>}
 
       <form
         class="contact-form"
@@ -44,7 +53,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
           <label for="message">Message</label>
           <textarea id="message" name="message" required></textarea>
         </div>
-        <button class="button" type="submit">Send inquiry</button>
+        <button class="button" type="submit">{page.submitLabel || 'Send inquiry'}</button>
       </form>
     </div>
   </section>

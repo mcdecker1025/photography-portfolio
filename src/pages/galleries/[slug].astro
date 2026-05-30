@@ -1,0 +1,76 @@
+---
+import PhotoGrid from '@components/PhotoGrid.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import {
+  getAdjacentGalleries,
+  getGalleries,
+  getGalleryDescription,
+  getGalleryHeroImage,
+  getGalleryPhotos,
+  getGallerySlug,
+  type Gallery,
+} from '@lib/galleries';
+
+export async function getStaticPaths() {
+  const galleries = await getGalleries();
+  return galleries.map((gallery) => ({
+    params: { slug: getGallerySlug(gallery) },
+    props: { gallery, galleries },
+  }));
+}
+
+interface Props {
+  gallery: Gallery;
+  galleries: Gallery[];
+}
+
+const { gallery, galleries } = Astro.props;
+const gallerySlug = getGallerySlug(gallery);
+const photos = getGalleryPhotos(gallery);
+const hasRealPhotos = gallery.data.photos.length + gallery.data.bulkPhotos.length > 0;
+const { previous, next } = getAdjacentGalleries(galleries, gallerySlug);
+---
+
+<BaseLayout title={gallery.data.title} description={gallery.data.summary}>
+  <section class="gallery-hero" aria-label={`${gallery.data.title} gallery`}>
+    <img
+      class="gallery-hero__image"
+      src={getGalleryHeroImage(gallery)}
+      alt=""
+      onerror={`this.onerror=null;this.src='${gallery.data.coverImage}'`}
+    />
+    <div class="gallery-hero__content">
+      <p class="eyebrow">Gallery</p>
+      <h1>{gallery.data.title}</h1>
+      <p>{getGalleryDescription(gallery)}</p>
+    </div>
+  </section>
+
+  <section class="gallery-toolbar">
+    <a href="/galleries/">All galleries</a>
+    <span>{hasRealPhotos ? `${photos.length} images` : 'Images coming soon'}</span>
+  </section>
+
+  <section class="section gallery-photo-section">
+    <div class="section__inner">
+      <PhotoGrid photos={photos} />
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <nav class="section__inner gallery-nav" aria-label="Adjacent galleries">
+      {previous && (
+        <a href={`/galleries/${getGallerySlug(previous)}/`}>
+          <span>Previous gallery</span>
+          <strong>{previous.data.title}</strong>
+        </a>
+      )}
+      {next && (
+        <a href={`/galleries/${getGallerySlug(next)}/`}>
+          <span>Next gallery</span>
+          <strong>{next.data.title}</strong>
+        </a>
+      )}
+    </nav>
+  </section>
+</BaseLayout>

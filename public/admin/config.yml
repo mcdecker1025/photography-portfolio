@@ -5,8 +5,8 @@ backend:
 
 local_backend: true
 publish_mode: editorial_workflow
-media_folder: "public/uploads/trips"
-public_folder: "/uploads/trips"
+media_folder: "public/uploads/galleries"
+public_folder: "/uploads/galleries"
 
 media_library:
   name: cloudinary
@@ -23,39 +23,82 @@ media_library:
           crop: limit
 
 collections:
-  - name: "trips"
-    label: "Trips"
-    folder: "src/content/trips"
+  - name: "galleries"
+    label: "Galleries"
+    label_singular: "Gallery"
+    description: "Create homepage/gallery categories like Mountaineering, Animals, Landscape, or Architecture."
+    folder: "src/content/galleries"
     create: true
     delete: true
     extension: "md"
     format: "frontmatter"
-    slug: "{{fields.slug}}"
-    preview_path: "trips/{{fields.slug}}"
+    identifier_field: "title"
+    summary: "{{title}}"
+    slug: "{{slug}}"
+    preview_path: "galleries/{{slug}}"
+    sortable_fields: ["order", "title", "commit_date"]
     fields:
-      - { label: "Title", name: "title", widget: "string" }
       - {
-          label: "Slug",
-          name: "slug",
+          label: "Gallery Name",
+          name: "title",
           widget: "string",
-          hint: "Lowercase URL segment, for example: pacific-edge",
+          hint: "Example: Mountaineering, Animals, Landscape, Architecture.",
         }
-      - { label: "Location", name: "location", widget: "string" }
-      - { label: "Start Date", name: "dateStart", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
-      - { label: "End Date", name: "dateEnd", widget: "datetime", date_format: "YYYY-MM-DD", time_format: false }
-      - { label: "Summary", name: "summary", widget: "text" }
-      - { label: "Story", name: "story", widget: "text" }
-      - { label: "Cover Image", name: "coverImage", widget: "image", allow_multiple: false }
-      - { label: "Hero Image", name: "heroImage", widget: "image", allow_multiple: false }
-      - label: "Photos"
+      - {
+          label: "Short Summary",
+          name: "summary",
+          widget: "text",
+          hint: "One sentence. This is used in previews and as fallback text.",
+        }
+      - {
+          label: "Cover Image",
+          name: "coverImage",
+          widget: "image",
+          allow_multiple: false,
+          hint: "Required. This appears on the homepage and Galleries page.",
+        }
+      - {
+          label: "Hero Image",
+          name: "heroImage",
+          widget: "image",
+          allow_multiple: false,
+          required: false,
+          hint: "Optional. If blank, the cover image is used at the top of the gallery page.",
+        }
+      - {
+          label: "Longer Gallery Description",
+          name: "description",
+          widget: "text",
+          required: false,
+          hint: "Optional. This appears over the large banner image. If blank, the short summary is used.",
+        }
+      - {
+          label: "Display Order",
+          name: "order",
+          widget: "number",
+          value_type: "int",
+          default: 999,
+          hint: "Lower numbers appear earlier in navigation and on the homepage.",
+        }
+      - label: "Curated Photos"
         name: "photos"
         widget: "list"
-        summary: "{{fields.caption}}"
+        required: false
+        collapsed: true
+        summary: "{{fields.title}}"
+        hint: "Use this when you want custom titles, locations, descriptions, alt text, or portrait/square layout per photo."
         fields:
           - { label: "Image", name: "image", widget: "image", allow_multiple: false }
-          - { label: "Alt Text", name: "alt", widget: "string" }
-          - { label: "Caption", name: "caption", widget: "string" }
-          - { label: "Favorite", name: "favorite", widget: "boolean", default: false }
+          - { label: "Photo Title", name: "title", widget: "string", required: false }
+          - { label: "Location", name: "location", widget: "string", required: false }
+          - { label: "Short Description", name: "description", widget: "text", required: false }
+          - {
+              label: "Alt Text",
+              name: "alt",
+              widget: "string",
+              required: false,
+              hint: "Optional but useful for accessibility. If blank, the photo title is used.",
+            }
           - {
               label: "Orientation",
               name: "orientation",
@@ -63,12 +106,50 @@ collections:
               required: false,
               options: ["landscape", "portrait", "square"],
             }
-      - label: "Bulk Photos"
+      - label: "Fast Batch Uploads"
         name: "bulkPhotos"
         widget: "image"
         required: false
         allow_multiple: true
-        hint: "Use this for fast Cloudinary batch uploads. These display in the gallery with automatic captions."
+        hint: "Fastest option for adding lots of photos. Select or upload multiple images at once; the site creates automatic titles and descriptions from the gallery info."
         media_library:
           config:
             multiple: true
+  - name: "site_pages"
+    label: "Pages"
+    description: "Edit fixed website pages that are not photo galleries."
+    files:
+      - label: "About Page"
+        name: "about"
+        file: "src/content/pages/about.md"
+        preview_path: "about"
+        fields:
+          - { label: "Browser Title", name: "title", widget: "string" }
+          - {
+              label: "Search Description",
+              name: "description",
+              widget: "text",
+              hint: "Short description for browsers and search previews.",
+            }
+          - { label: "Small Label", name: "eyebrow", widget: "string" }
+          - { label: "Main Heading", name: "heading", widget: "string" }
+          - label: "Body Paragraphs"
+            name: "paragraphs"
+            widget: "list"
+            field: { label: "Paragraph", name: "paragraph", widget: "text" }
+      - label: "Contact Page"
+        name: "contact"
+        file: "src/content/pages/contact.md"
+        preview_path: "contact"
+        fields:
+          - { label: "Browser Title", name: "title", widget: "string" }
+          - {
+              label: "Search Description",
+              name: "description",
+              widget: "text",
+              hint: "Short description for browsers and search previews.",
+            }
+          - { label: "Small Label", name: "eyebrow", widget: "string" }
+          - { label: "Main Heading", name: "heading", widget: "string" }
+          - { label: "Intro Text", name: "intro", widget: "text", required: false }
+          - { label: "Submit Button Text", name: "submitLabel", widget: "string", default: "Send inquiry" }

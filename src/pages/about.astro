@@ -1,24 +1,31 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import { getPageContent } from '@lib/pages';
+
+const page = await getPageContent('about', {
+  title: 'About',
+  description: 'About Matthew Decker Photography and the photography portfolio.',
+  eyebrow: 'About',
+  heading: 'A personal archive for places, light, and memory.',
+  paragraphs: [
+    'This portfolio is set up as a living archive of gallery categories: mountaineering, landscapes, animals, architecture, night skies, aerial work, and any other collections that fit the photographs.',
+    'The gallery structure can grow over time. Upload web-ready files through the CMS, add titles and descriptions, and publish when a category is ready to update.',
+  ],
+});
 ---
 
 <BaseLayout
-  title="About"
-  description="About Matthew Decker Photography and the travel portfolio."
+  title={page.title}
+  description={page.description}
 >
   <section class="section">
     <div class="section__inner content-panel">
-      <p class="eyebrow">About</p>
-      <h1 class="page-title">A personal archive for places, light, and memory.</h1>
-      <p>
-        This portfolio is set up as a living travel archive: each trip gets a concise field note, a handful of favorites, and a gallery that can grow over time.
-      </p>
-      <p>
-        The current images are polished placeholders so the site can be designed and deployed before the real curated exports are ready. Once you begin replacing them, the structure stays the same: upload web-ready files, add captions, mark favorites, and publish.
-      </p>
+      <p class="eyebrow">{page.eyebrow}</p>
+      <h1 class="page-title">{page.heading}</h1>
+      {page.paragraphs.map((paragraph) => <p>{paragraph}</p>)}
       <div class="inline-actions">
         <a class="button" href="/contact/">Get in touch</a>
-        <a class="button button--ghost" href="/trips/">Browse trips</a>
+        <a class="button button--ghost" href="/galleries/">Browse galleries</a>
       </div>
     </div>
   </section>

@@ -1,42 +1,34 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { formatDateRange, getAllTripPhotos, getTrips } from '@lib/trips';
+import { getGalleries, getGalleryHeroImage, getGalleryPhotos, getGallerySlug } from '@lib/galleries';
 
-const trips = await getTrips();
+const galleries = await getGalleries();
+const featuredGallery = galleries[0];
 ---
 
 <BaseLayout>
-  <section class="home-intro" aria-label="Portfolio introduction">
-    <p class="eyebrow">Travel photography portfolio</p>
-    <h1>Frames from the road, gathered by trip.</h1>
-    <p>
-      A personal archive of places, light, and favorite images. Scroll through the trips, then open each one for the full edit.
-    </p>
-  </section>
-
-  <section class="trip-stack" aria-label="Trip archive">
-    {
-      trips.map((trip, index) => {
-        const photoCount = getAllTripPhotos(trip).length;
-        return (
-          <a class="trip-panel" href={`/trips/${trip.data.slug}/`}>
-            <img class="trip-panel__image" src={trip.data.coverImage} alt="" loading={index === 0 ? 'eager' : 'lazy'} />
-            <span class="trip-panel__content">
-              <span class="trip-panel__meta">
-                {trip.data.location} · {formatDateRange(trip.data.dateStart, trip.data.dateEnd)} · {photoCount} photos
+  <section class="category-hero" aria-label="Photography gallery categories">
+    <img
+      class="category-hero__image"
+      src={featuredGallery ? getGalleryHeroImage(featuredGallery) : '/uploads/trips/img_5265.jpeg'}
+      alt=""
+    />
+    <div class="category-hero__content">
+      <p class="category-hero__kicker">Matthew Decker Photography</p>
+      <h1>Photography Galleries</h1>
+      <nav class="category-menu" aria-label="Gallery categories">
+        {
+          galleries.map((gallery, index) => (
+            <a href={`/galleries/${getGallerySlug(gallery)}/`}>
+              <img src={gallery.data.coverImage} alt="" loading={index < 4 ? 'eager' : 'lazy'} />
+              <span class="category-menu__label">
+                <span>{gallery.data.title}</span>
+                <small>{getGalleryPhotos(gallery).length} images</small>
               </span>
-              <span class="trip-panel__title">{trip.data.title}</span>
-              <span class="trip-panel__summary">{trip.data.summary}</span>
-              <span class="trip-panel__cta">View trip</span>
-            </span>
-          </a>
-        );
-      })
-    }
-  </section>
-
-  <section class="home-outro">
-    <a class="button" href="/favorites/">View favorite frames</a>
-    <a class="button button--ghost" href="/about/">About the archive</a>
+            </a>
+          ))
+        }
+      </nav>
+    </div>
   </section>
 </BaseLayout>

@@ -11,7 +11,10 @@
     <button class="lightbox__close" type="button" aria-label="Close photograph">&times;</button>
     <div class="lightbox__inner">
       <img alt="" />
-      <div class="lightbox__caption"></div>
+      <div class="lightbox__caption">
+        <strong></strong>
+        <span></span>
+      </div>
     </div>
   `;
 
@@ -20,6 +23,8 @@
   const closeButton = lightbox.querySelector('.lightbox__close');
   const image = lightbox.querySelector('img');
   const caption = lightbox.querySelector('.lightbox__caption');
+  const captionTitle = caption.querySelector('strong');
+  const captionDescription = caption.querySelector('span');
   let activeButton = null;
 
   const close = () => {
@@ -33,7 +38,10 @@
     activeButton = button;
     image.src = button.dataset.galleryImage;
     image.alt = button.dataset.galleryAlt || '';
-    caption.textContent = button.dataset.galleryCaption || '';
+    const title = button.dataset.galleryTitle || '';
+    const location = button.dataset.galleryLocation || '';
+    captionTitle.textContent = location ? `${title} | ${location}` : title;
+    captionDescription.textContent = button.dataset.galleryDescription || button.dataset.galleryCaption || '';
     lightbox.classList.add('is-open');
     document.body.style.overflow = 'hidden';
     closeButton.focus();
